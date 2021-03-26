@@ -1,63 +1,47 @@
-function handleSubmit(event) {
+const userUrl = require('valid-url');
+
+const handleSubmit = function (event) {
   event.preventDefault();
 
-  // check what text was put into the form field
   let formText = document.getElementById('name').value;
-  checkForName(formText);
+  // check for valid url
+  if (userUrl.isWebUri(formText)) {
+    console.log('::: Form Submitted :::');
+    fetchAylien('http://localhost:8080/article', formText);
+  } else {
+    document.getElementById('error').innerHTML = 'Please Enter a Valid URL.';
+  }
+};
 
-  console.log('::: Form Submitted :::');
-  fetch('http://localhost:8080/test')
-    .then((res) => res.json())
-    .then(function (res) {
-      document.getElementById('results').innerHTML = res.message;
-    });
-}
-
-const postData = async (url = '', data = {}) => {
-  console.log('Analyzing:', data);
-  const response = await fetch(url, {
+const fetchMeaningcloud = async (url, input) => {
+  const res = await fetch(url, {
     method: 'POST',
-    credentials: 'same-origin',
     mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      text: input,
+    }),
   });
   try {
-    const newData = await response.json();
-    console.log('Data received:', newData);
-    return newData;
+    const data = await res.json();
+    if (res.status >= 200 && res.status < 400) {
+      //const list = document.createElement('li');
+      document.getElementById('polarity').innerHTML = data.polarity;
+      document.getElementById('polarity_confidence').innerHTML =
+        data.polarity_confidence;
+      document.getElementById('subjectivity').innerHTML = data.subjectivity;
+      document.getElementById('subjectivity_confidence').innerHTML =
+        data.subjectivity_confidence;
+      document.getElementById('text').innerHTML = data.text;
+    }
   } catch (error) {
-    console.log('error', error);
+    document.getElementById('error').innerHTML =
+      'Something went wrong with your request. Please try again';
   }
 };
 
-// API response output (https://www.meaningcloud.com/developer/sentiment-analysis/doc/2.1/response)
-const polarityChecker = (score) => {
-  let display;
-  switch (score) {
-    case 'P+':
-      display = 'strong positive';
-      break;
-    case 'P':
-      display = 'positive';
-      break;
-    case 'NEW':
-      display = 'neutral';
-      break;
-    case 'N':
-      display = 'negative';
-      break;
-    case 'N+':
-      display = 'strong negative';
-      break;
-    case 'NONE':
-      display = 'no sentiment';
-  }
-  return display.toUpperCase();
-};
-
-export { handleSubmit };
-export { polarityChecker };
-export { postData };
+export { handleSubmit, userUrl, fetchMeaningcloud };

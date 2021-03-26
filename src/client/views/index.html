@@ -1,73 +1,87 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Test</title>
-    <link rel="stylesheet" href="/styles/resets.css" />
-    <link rel="stylesheet" href="/styles/base.css" />
-    <link rel="stylesheet" href="/styles/header.css" />
-    <link rel="stylesheet" href="/styles/form.css" />
-    <link rel="stylesheet" href="/styles/footer.css" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Evaluate a News Article</title>
+    <link href="main.css" rel="stylesheet" />
+    <link
+      href="https://img.icons8.com/nolan/100/000000/new-openstack-logo.png"
+      rel="icon"
+      sizes="48x48"
+      type="image/png"
+    />
   </head>
 
   <body>
     <header>
-      <div class="">Logo</div>
-      <div class="">navigation</div>
+      <div class="">Udacity</div>
+      <div class="">Evaluate a News Article with NLP</div>
     </header>
-
     <main>
+      <h1>The Aylien API</h1>
+      <p class="description">Udacity First Project</p>
+      <h2>Type in a "URL" to see what the api NLP understands from it.</h2>
       <section>
-        <form class="" id="cpa-form" onsubmit="return handleSubmit(event)">
+        <form class="" onsubmit="return Client.handleSubmit(event)">
           <input
-            id="url"
-            type="text"
+            id="name"
             name="input"
+            placeholder="Any News Website URL Using http or https"
+            type="url"
             value=""
-            placeholder="Enter URL here"
           />
           <input
-            type="submit"
+            id="callapi"
             name=""
-            value="submit"
             onclick="return Client.handleSubmit(event)"
-            onsubmit="return handleSubmit(event)"
+            onsubmit="return Client.handleSubmit(event)"
+            type="submit"
+            value="submit"
           />
         </form>
-      </section>
-
-      <section>
-        <strong>Form Results:</strong>
-        <section>
-          <strong>Form Results:</strong>
-          <div id="polarity"></div>
-          <div id="agreement"></div>
-          <div id="subjectivity"></div>
-          <div id="confidence"></div>
-          <div id="irony"></div>
+        <div id="error"></div>
+        <section class="url-results">
+          <strong>Results:</strong>
+          <div class="result-blocks" id="results">
+            <!-- the content will be added here by JS -->
+            <ul>
+              <li class="list">
+                <h3>Text Polarity:</h3>
+                <p id="polarity"></p>
+                <h4>Confidence:</h4>
+                <p id="polarity_confidence"></p>
+              </li>
+              <li class="list">
+                <h3>Text Subjectivity:</h3>
+                <p id="subjectivity"></p>
+                <h4>Confidence:</h4>
+                <p id="subjectivity_confidence"></p>
+              </li>
+              <li class="list">
+                <h3>Text Excerpt:</h3>
+                <p id="text"></p>
+              </li>
+            </ul>
+          </div>
         </section>
       </section>
     </main>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            });
+        });
+      } else {
+        console.log('Service Working not working');
+      }
+    </script>
     <footer>
-      <nav class="fnav">
-        <ul>
-          <li>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-          </li>
-          <li>
-            <a href="https://github.com/emiribegic" target="_blank"
-              ><i class="fab fa-github-square"></i
-            ></a>
-          </li>
-          <li>
-            <a href="#"><i class="fab fa-instagram-square"></i></a>
-          </li>
-          <li>
-            <a href="#"><i class="fab fa-facebook-square"></i></a>
-          </li>
-        </ul>
-        <div class="copyright">© 2020</div>
-      </nav>
+      <p>Project Created for the Udacity FEND &copy; 2019</p>
     </footer>
   </body>
 </html>
