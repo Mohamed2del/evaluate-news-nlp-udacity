@@ -12,7 +12,7 @@ console.log(__dirname);
 
 // You could call it aylienapi, or anything else
 var textapi = new aylien({
-  application_key: '7eefda69a6582c70ab4af58700120961',
+  application_key: process.env.API_KEY,
 });
 
 app.get('/', function (req, res) {
