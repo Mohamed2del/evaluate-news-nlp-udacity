@@ -7,7 +7,7 @@ function handleSubmit(event) {
   if (Client.checkForURL(formText)) {
     console.log('::: Form Submitted :::');
 
-    postData('http://localhost:8081/article', { url: formText }).then(function (
+    postData('http://localhost:8080/article', { url: formText }).then(function (
       res
     ) {
       document.getElementById('polarity').innerHTML =
