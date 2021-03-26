@@ -45,16 +45,6 @@ app.post('/article', async function (req, res) {
   const mcData = await response.json();
   console.log(mcData);
   res.send(mcData);
-  /** server sends only specified data to the client with below codes
-   * const projectData = {
-   *  score_tag : mcData.score_tag,
-   *  agreement : mcData.agreement,
-   *  subjectivity : mcData.subjectivity,
-   *  confidence : mcData.confidence,
-   *  irony : mcData.irony
-   * }
-   * res.send(projectData);
-   * */
 });
 
 // designates what port the app will listen to for incoming requests

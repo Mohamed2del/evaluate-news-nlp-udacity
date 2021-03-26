@@ -1,6 +1,6 @@
 function submitButton(event) {
   event.preventDefault();
-  const getLocalHost = 'http://localhost:8080/article';
+  const getLocalHost = 'http://localhost:8081/article';
   fetch(getLocalHost)
     .then(function (response) {
       return response.json();
