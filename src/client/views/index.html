@@ -18,20 +18,19 @@
 
     <main>
       <section>
-        <form class="" onsubmit="return handleSubmit(event)">
+        <form class="" id="cpa-form" onsubmit="return handleSubmit(event)">
           <input
-            id="name"
+            id="url"
             type="text"
             name="input"
             value=""
-            onblur="onBlur()"
-            placeholder="Name"
+            placeholder="Enter URL here"
           />
           <input
             type="submit"
             name=""
             value="submit"
-            onclick="return handleSubmit(event)"
+            onclick="return Client.handleSubmit(event)"
             onsubmit="return handleSubmit(event)"
           />
         </form>
@@ -39,7 +38,14 @@
 
       <section>
         <strong>Form Results:</strong>
-        <div id="results"></div>
+        <section>
+          <strong>Form Results:</strong>
+          <div id="polarity"></div>
+          <div id="agreement"></div>
+          <div id="subjectivity"></div>
+          <div id="confidence"></div>
+          <div id="irony"></div>
+        </section>
       </section>
     </main>
     <footer>
