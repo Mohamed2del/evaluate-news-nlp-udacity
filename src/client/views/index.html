@@ -1,87 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Evaluate a News Article</title>
-    <link href="main.css" rel="stylesheet" />
+    <title>Sentiment Analyzer</title>
     <link
-      href="https://img.icons8.com/nolan/100/000000/new-openstack-logo.png"
-      rel="icon"
-      sizes="48x48"
-      type="image/png"
+      href="https://fonts.googleapis.com/css2?&family=Roboto:wght@300;500;700&family=Roboto+Slab:wght@300;400;700;800&display=swap"
+      rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/1aac26dbd0.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
     <header>
-      <div class="">Udacity</div>
-      <div class="">Evaluate a News Article with NLP</div>
+      <h1>Sentient Analyzer</h1>
     </header>
+
     <main>
-      <h1>The Aylien API</h1>
-      <p class="description">Udacity First Project</p>
-      <h2>Type in a "URL" to see what the api NLP understands from it.</h2>
+      <p>Enter a URL of an article / a blog to discover its sentiment.</p>
       <section>
-        <form class="" onsubmit="return Client.handleSubmit(event)">
+        <form class="" id="form" onsubmit="return Client.handleSubmit(event)">
           <input
-            id="name"
+            id="url"
+            type="text"
             name="input"
-            placeholder="Any News Website URL Using http or https"
-            type="url"
             value=""
+            placeholder="Enter URL here"
           />
           <input
-            id="callapi"
+            type="submit"
             name=""
+            value="submit"
             onclick="return Client.handleSubmit(event)"
             onsubmit="return Client.handleSubmit(event)"
-            type="submit"
-            value="submit"
           />
         </form>
-        <div id="error"></div>
-        <section class="url-results">
-          <strong>Results:</strong>
-          <div class="result-blocks" id="results">
-            <!-- the content will be added here by JS -->
-            <ul>
-              <li class="list">
-                <h3>Text Polarity:</h3>
-                <p id="polarity"></p>
-                <h4>Confidence:</h4>
-                <p id="polarity_confidence"></p>
-              </li>
-              <li class="list">
-                <h3>Text Subjectivity:</h3>
-                <p id="subjectivity"></p>
-                <h4>Confidence:</h4>
-                <p id="subjectivity_confidence"></p>
-              </li>
-              <li class="list">
-                <h3>Text Excerpt:</h3>
-                <p id="text"></p>
-              </li>
-            </ul>
-          </div>
-        </section>
+      </section>
+
+      <section>
+        <strong>Form Results:</strong>
+        <div id="polarity"></div>
+        <div id="agreement"></div>
+        <div id="subjectivity"></div>
+        <div id="confidence"></div>
+        <div id="irony"></div>
       </section>
     </main>
+
+    <footer>
+      <nav class="fnav">
+        <ul>
+          <li>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </li>
+          <li>
+            <a href="https://github.com/emiribegic" target="_blank"
+              ><i class="fab fa-github-square"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-instagram-square"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-facebook-square"></i></a>
+          </li>
+        </ul>
+        <div class="copyright">© 2020</div>
+      </nav>
+    </footer>
+
     <script>
+      // Check that service workers are supported
       if ('serviceWorker' in navigator) {
+        // Use the window load event to keep the page load performant
         window.addEventListener('load', () => {
-          navigator.serviceWorker
-            .register('/service-worker.js')
-            .then((registration) => {
-              console.log('SW registered: ', registration);
-            });
+          navigator.serviceWorker.register('/service-worker.js');
         });
-      } else {
-        console.log('Service Working not working');
       }
     </script>
-    <footer>
-      <p>Project Created for the Udacity FEND &copy; 2019</p>
-    </footer>
   </body>
 </html>
