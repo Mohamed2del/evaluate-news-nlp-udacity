@@ -5,7 +5,7 @@ function handleSubmit(event) {
   let formText = document.getElementById('url').value;
 
   // make sure the url is real url to avoid fakes requests
-  handlePost('http://localhost:8081/article', { url: formText }).then(function (
+  postReq('http://localhost:8081/article', { url: formText }).then(function (
     res
   ) {
     // minuplate DOM to display values from the respone
@@ -24,8 +24,7 @@ function handleSubmit(event) {
   });
 }
 
-const handlePost = async (url = '', data = {}) => {
-  console.log('working on it:', data);
+const postReq = async (url = '', data = {}) => {
   const response = await fetch(url, {
     method: 'POST',
     credentials: 'same-origin',
@@ -37,10 +36,9 @@ const handlePost = async (url = '', data = {}) => {
   });
   try {
     const data = await response.json();
-    console.log('Data is coming:', data);
     return data;
-  } catch (error) {
-    console.log('error', error);
+  } catch (err) {
+    console.log('error', err);
   }
 };
 
