@@ -2,10 +2,10 @@ function handleSubmit(event) {
   event.preventDefault();
 
   // get the url from the form using DOM
-  let formText = document.getElementById('url').value;
+  let formUrl = document.getElementById('url').value;
 
   // make sure the url is real url to avoid fakes requests
-  postReq('http://localhost:8081/article', { url: formText }).then(function (
+  postReq('http://localhost:8081/article', { url: formUrl }).then(function (
     res
   ) {
     // minuplate DOM to display values from the respone
