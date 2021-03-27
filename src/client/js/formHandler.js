@@ -5,13 +5,11 @@ function handleSubmit(event) {
   let formText = document.getElementById('url').value;
 
   if (Client.checkForURL(formText)) {
-    console.log('::: Form Submitted :::');
-
     postData('http://localhost:8081/article', { url: formText }).then(function (
       res
     ) {
       document.getElementById('polarity').innerHTML =
-        'Polarity: ' + polarityChecker(res.score_tag);
+        'Polarity: ' + apihandle(res.score_tag);
       document.getElementById(
         'agreement'
       ).innerHTML = `Agreement: ${res.agreement}`;
@@ -29,7 +27,7 @@ function handleSubmit(event) {
 }
 
 const postData = async (url = '', data = {}) => {
-  console.log('Analyzing:', data);
+  console.log('working on it:', data);
   const response = await fetch(url, {
     method: 'POST',
     credentials: 'same-origin',
@@ -40,38 +38,38 @@ const postData = async (url = '', data = {}) => {
     body: JSON.stringify(data),
   });
   try {
-    const newData = await response.json();
-    console.log('Data received:', newData);
-    return newData;
+    const data = await response.json();
+    console.log('Data is coming:', data);
+    return data;
   } catch (error) {
     console.log('error', error);
   }
 };
 
 // API response output (https://www.meaningcloud.com/developer/sentiment-analysis/doc/2.1/response)
-const polarityChecker = (score) => {
-  let display;
+const apihandle = (score) => {
+  let show;
   switch (score) {
     case 'P+':
-      display = 'strong positive';
+      show = 'P+';
       break;
     case 'P':
-      display = 'positive';
+      show = 'P';
       break;
     case 'NEW':
-      display = 'neutral';
+      show = 'neutral';
       break;
     case 'N':
-      display = 'negative';
+      show = 'normal negative';
       break;
     case 'N+':
-      display = 'strong negative';
+      show = ' negative + ';
       break;
     case 'NONE':
-      display = 'no sentiment';
+      show = 'none';
   }
-  return display.toUpperCase();
+  return show.toUpperCase();
 };
 
 export { handleSubmit };
-export { polarityChecker };
+export { apihandle };

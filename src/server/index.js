@@ -22,9 +22,8 @@ console.log(__dirname);
 
 // API
 const baseURL = 'https://api.meaningcloud.com/sentiment-2.1?';
+// api key from the .env
 const apiKey = process.env.API_KEY;
-console.log(`Your API Key is ${process.env.API_KEY}`);
-let userInput = []; // const does not work
 
 app.get('/', function (req, res) {
   res.sendFile('dist/index.html');
@@ -37,17 +36,21 @@ app.get('/test', function (req, res) {
 
 // POST Route
 app.post('/article', async function (req, res) {
-  userInput = req.body.url;
-  console.log(`You entered: ${userInput}`);
+  // user input and generate the url that is going to be sent to the api
+  input = req.body.url;
   const apiURL = `${baseURL}key=${apiKey}&url=${userInput}&lang=en`;
 
+  // respone that coming from fethc
   const response = await fetch(apiURL);
-  const mcData = await response.json();
-  console.log(mcData);
-  res.send(mcData);
+  // convert response into json
+
+  const dataFromResponse = await response.json();
+
+  // send the data from respone as json to the client
+  res.send(dataFromResponse);
 });
 
-// designates what port the app will listen to for incoming requests
+// this 8081 and client is on 8080
 app.listen(8081, function () {
   console.log('Example app listening on port 8081!');
 });
