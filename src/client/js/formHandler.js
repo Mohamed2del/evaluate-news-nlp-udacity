@@ -10,7 +10,7 @@ function handleSubmit(event) {
   ) {
     // minuplate DOM to display values from the respone
     document.getElementById('polarityTag').innerHTML =
-      'Polarity: ' + apihandle(res.score_tag);
+      'Polarity: ' + $(res.score_tag);
     document.getElementById(
       'agreementTag'
     ).innerHTML = `Agreement: ${res.agreement}`;
@@ -42,30 +42,4 @@ const postReq = async (url = '', data = {}) => {
   }
 };
 
-// API response output (https://www.meaningcloud.com/developer/sentiment-analysis/doc/2.1/response)
-const apihandle = (score) => {
-  let show;
-  switch (score) {
-    case 'P+':
-      show = 'P+';
-      break;
-    case 'P':
-      show = 'P';
-      break;
-    case 'NEW':
-      show = 'neutral';
-      break;
-    case 'N':
-      show = 'normal negative';
-      break;
-    case 'N+':
-      show = ' negative + ';
-      break;
-    case 'NONE':
-      show = 'none';
-  }
-  return show.toUpperCase();
-};
-
 export { handleSubmit };
-export { apihandle };
