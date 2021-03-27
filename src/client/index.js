@@ -1,3 +1,5 @@
+import 'regenerator-runtime/runtime';
+
 import { handleSubmit } from './js/formHandler';
 import { checkForURL } from './js/urlcheck';
 require('babel-core/register');
