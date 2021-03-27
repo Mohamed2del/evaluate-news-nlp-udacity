@@ -21,7 +21,7 @@ app.use(express.static('dist'));
 console.log(__dirname);
 
 // API
-const baseURL = 'https://api.meaningcloud.com/sentiment-2.1?';
+const URL = 'https://api.meaningcloud.com/sentiment-2.1?';
 // api key from the .env
 const apiKey = process.env.API_KEY;
 
@@ -34,11 +34,11 @@ app.get('/test', function (req, res) {
   res.send(mockAPIResponse);
 });
 
-// POST Route
+// POST Route for get the analysis
 app.post('/article', async function (req, res) {
   // user input and generate the url that is going to be sent to the api
   input = req.body.url;
-  const apiURL = `${baseURL}key=${apiKey}&url=${userInput}&lang=en`;
+  const apiURL = `${URL}key=${apiKey}&url=${input}&lang=en`;
 
   // respone that coming from fethc
   const response = await fetch(apiURL);

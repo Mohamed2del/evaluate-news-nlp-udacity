@@ -1,32 +1,30 @@
 function handleSubmit(event) {
   event.preventDefault();
 
-  // check what text was put into the form field
+  // get the url from the form using DOM
   let formText = document.getElementById('url').value;
 
-  if (Client.checkForURL(formText)) {
-    postData('http://localhost:8081/article', { url: formText }).then(function (
-      res
-    ) {
-      document.getElementById('polarity').innerHTML =
-        'Polarity: ' + apihandle(res.score_tag);
-      document.getElementById(
-        'agreement'
-      ).innerHTML = `Agreement: ${res.agreement}`;
-      document.getElementById(
-        'subjectivity'
-      ).innerHTML = `Subjectivity: ${res.subjectivity}`;
-      document.getElementById(
-        'confidence'
-      ).innerHTML = `Confidence: ${res.confidence}`;
-      document.getElementById('irony').innerHTML = `Irony: ${res.irony}`;
-    });
-  } else {
-    alert('Seems like an invalid URL, please try with a valid URL.');
-  }
+  // make sure the url is real url to avoid fakes requests
+  handlePost('http://localhost:8081/article', { url: formText }).then(function (
+    res
+  ) {
+    // minuplate DOM to display values from the respone
+    document.getElementById('polarityTag').innerHTML =
+      'Polarity: ' + apihandle(res.score_tag);
+    document.getElementById(
+      'agreementTag'
+    ).innerHTML = `Agreement: ${res.agreement}`;
+    document.getElementById(
+      'subjectivityTag'
+    ).innerHTML = `Subjectivity: ${res.subjectivity}`;
+    document.getElementById(
+      'confidenceTag'
+    ).innerHTML = `Confidence: ${res.confidence}`;
+    document.getElementById('ironyTag').innerHTML = `Irony: ${res.irony}`;
+  });
 }
 
-const postData = async (url = '', data = {}) => {
+const handlePost = async (url = '', data = {}) => {
   console.log('working on it:', data);
   const response = await fetch(url, {
     method: 'POST',
